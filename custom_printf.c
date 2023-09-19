@@ -78,3 +78,21 @@ int _printf(const char *format, ...)
 
 	return (count);
 }
+
+/** To test
+*int main(void)
+*{
+*	int len;
+*
+*	len = _printf("Characters: %c\n", 'A');
+*	_printf("Length: %d\n", len);
+*
+*	len = _printf("Strings: %s\n", "Hello World!");
+*	_printf("Length: %d\n", len);
+*
+*	len = _printf("Percent: %%\n");
+*	_printf("Length: %d\n", len);
+*
+*	return (0);
+*}
+*/
