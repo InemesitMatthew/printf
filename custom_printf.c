@@ -43,16 +43,19 @@ int _printf(const char *format, ...)
                         }
                         else
                         {
+			/* Calculate the binary representation */
                             while (num > 0)
                             {
                                 binary[index++] = num % 2;
                                 num /= 2;
                             }
-
+			/* Print the binary representation in reverse order */
                             for (i = index - 1; i >= 0; i--)
                             {
-                                write(1, &(binary[i] + '0'), 1);
-                                count++;
+				/* Convert to character */
+				char digit = binary[i] + '0';
+                                write(1, &digit, 1);
+				count++;
                             }
                         }
                     }
