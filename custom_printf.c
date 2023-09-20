@@ -167,7 +167,7 @@ int _printf(const char *format, ...)
                 case 'S':
                     /* Handle string conversion */
                     str_buffer = va_arg(args, char *);
-                    if (str_buffer)
+                    if (str_buffer != NULL)
                     {
                         while (*str_buffer)
                         {
