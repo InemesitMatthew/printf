@@ -20,7 +20,7 @@ int _printf(const char *format, ...)
     int i;
     char character; /* Declare character variable */
     int len; /* Declare len variable */
-    char len_str[32]; /* Buffer to store integer as string */
+    char len_str[UINT_SIZE]; /* Buffer to store integer as string, size of 32*/
 
     va_start(args, format); /* Initialize the va_list */
 
@@ -37,7 +37,7 @@ int _printf(const char *format, ...)
                     /* Handle binary conversion */
                     {
                         unsigned int num = va_arg(args, unsigned int);
-                        int binary[32]; /* Array to store binary representation */
+                        int binary[UINT_SIZE]; /* Array to store binary representation */
                         int index = 0;
 
                         if (num == 0)
@@ -77,7 +77,7 @@ int _printf(const char *format, ...)
                     /* Handle decimal and integer conversion */
                     {
                         int num = va_arg(args, int);
-                        char num_str[32]; /* Buffer to store integer as string */
+                        char num_str[UINT_SIZE]; /* Buffer to store integer as string */
                         int len = snprintf(num_str, sizeof(num_str), "%d", num);
 
                         if (len > 0)
@@ -92,7 +92,7 @@ int _printf(const char *format, ...)
                     /* Handle unsigned integer conversion */
                     {
                         unsigned int num = va_arg(args, unsigned int);
-                        char num_str[32]; /* Buffer to store unsigned integer as string */
+                        char num_str[UINT_SIZE]; /* Buffer to store unsigned integer as string */
                         int len = snprintf(num_str, sizeof(num_str), "%u", num);
 
                         if (len > 0)
@@ -107,7 +107,7 @@ int _printf(const char *format, ...)
                     /* Handle octal conversion */
                     {
                         unsigned int num = va_arg(args, unsigned int);
-                        char num_str[32]; /* Buffer to store octal representation */
+                        char num_str[UINT_SIZE]; /* Buffer to store octal representation */
                         int len = snprintf(num_str, sizeof(num_str), "%o", num);
 
                         if (len > 0)
@@ -122,7 +122,7 @@ int _printf(const char *format, ...)
                     /* Handle lowercase hexadecimal conversion */
                     {
                         unsigned int num = va_arg(args, unsigned int);
-                        char num_str[32]; /* Buffer to store hexadecimal representation */
+                        char num_str[UINT_SIZE]; /* Buffer to store hexadecimal representation */
                         int len = snprintf(num_str, sizeof(num_str), "%x", num);
 
                         if (len > 0)
@@ -137,7 +137,7 @@ int _printf(const char *format, ...)
                     /* Handle uppercase hexadecimal conversion */
                     {
                         unsigned int num = va_arg(args, unsigned int);
-                        char num_str[32]; /* Buffer to store uppercase hexadecimal representation */
+                        char num_str[UINT_SIZE]; /* Buffer to store uppercase hexadecimal representation */
                         int len = snprintf(num_str, sizeof(num_str), "%X", num);
 
                         if (len > 0)
@@ -152,7 +152,7 @@ int _printf(const char *format, ...)
                     /* Handle pointer conversion */
                     {
                         void *ptr = va_arg(args, void *);
-                        char ptr_str[32]; /* Buffer to store pointer as string */
+                        char ptr_str[UINT_SIZE]; /* Buffer to store pointer as string */
                         int len = snprintf(ptr_str, sizeof(ptr_str), "%p", ptr);
 
                         if (len > 0)
