@@ -16,7 +16,11 @@ int _printf(const char *format, ...)
     int count = 0; /* Initialize the character count */
     char buffer[1024]; /* Local buffer for write */
     char *str_buffer = buffer; /* Pointer to buffer for string handling */
+
     int i;
+    char character; /* Declare character variable */
+    int len; /* Declare len variable */
+    char len_str[32]; /* Buffer to store integer as string */
 
     va_start(args, format); /* Initialize the va_list */
 
@@ -43,22 +47,29 @@ int _printf(const char *format, ...)
                         }
                         else
                         {
-			/* Calculate the binary representation */
+                            /* Calculate the binary representation */
                             while (num > 0)
                             {
                                 binary[index++] = num % 2;
                                 num /= 2;
                             }
-			/* Print the binary representation in reverse order */
+                            /* Print the binary representation in reverse order */
                             for (i = index - 1; i >= 0; i--)
                             {
-				/* Convert to character */
-				char digit = binary[i] + '0';
+                                /* Convert to character */
+                                char digit = binary[i] + '0';
                                 write(1, &digit, 1);
-				count++;
+                                count++;
                             }
                         }
                     }
+                    break;
+
+                case 'c':
+                    /* Handle character conversion */
+                    character = va_arg(args, int);
+                    write(1, &character, 1);
+                    count++;
                     break;
 
                 case 'd':
@@ -152,14 +163,16 @@ int _printf(const char *format, ...)
                     }
                     break;
 
+                case 's':
                 case 'S':
                     /* Handle string conversion */
                     str_buffer = va_arg(args, char *);
                     if (str_buffer)
                     {
-                        for (i = 0; str_buffer[i]; i++)
+                        while (*str_buffer)
                         {
-                            write(1, &str_buffer[i], 1);
+                            write(1, str_buffer, 1);
+                            str_buffer++;
                             count++;
                         }
                     }
@@ -214,6 +227,16 @@ int _printf(const char *format, ...)
                                 len++;
                             }
                         }
+                    }
+                    break;
+
+                case 'n':
+                    len = va_arg(args, int);
+                    int len_len = snprintf(len_str, sizeof(len_str), "%d", len);
+                    if (len_len > 0)
+                    {
+                        write(1, len_str, len_len);
+                        count += len_len;
                     }
                     break;
 
