@@ -1,7 +1,3 @@
-#include <stdarg.h>
-#include <stdio.h>
-#include <unistd.h>
-
 #include "main.h"
 
 /**
@@ -38,10 +34,11 @@ int _printf(const char *format, ...)
 		}
 		else
 		{
-			/* Move past '%' and check the next character to determine how to
-			 * format it*/
+			/*
+			 * Move past '%' and check the next character
+			 * to determine how to format it
+			 */
 			format++;
-
 			/* Handle format specifiers */
 			switch (*format)
 			{
@@ -49,32 +46,7 @@ int _printf(const char *format, ...)
 				/* Handle binary conversion */
 				{
 					unsigned int num = va_arg(args, unsigned int);
-					/* Array to store binary representation */
-					int binary[UINT_SIZE];
-					int index = 0;
-
-					if (num == 0)
-					{
-						write(1, "0", BYTE);
-						count += BYTE;
-					}
-					else
-					{
-						/* Calculate the binary representation */
-						while (num > 0)
-						{
-							binary[index++] = num % 2;
-							num /= 2;
-						}
-						/* Print the binary representation in reverse order */
-						for (i = index - 1; i >= 0; i--)
-						{
-							/* Convert to character */
-							char digit = binary[i] + '0';
-							write(1, &digit, BYTE);
-							count += BYTE;
-						}
-					}
+					handle_binary(num, &count);
 				}
 				break;
 			case 'c':
@@ -88,24 +60,14 @@ int _printf(const char *format, ...)
 			{
 				/* Handle decimal and integer conversion */
 				int num = va_arg(args, int);
-				char num_str[UINT_SIZE]; /* Buffer to store integer as string */
-
-				handle_integers(num, num_str, &count);
+				handle_integers(num, &count);
 			}
 			break;
 			case 'u':
 				/* Handle unsigned integer conversion */
 				{
 					unsigned int num = va_arg(args, unsigned int);
-					char num_str[UINT_SIZE]; /* Buffer to store unsigned integer
-												as string */
-					int len = snprintf(num_str, sizeof(num_str), "%u", num);
-
-					if (len > 0)
-					{
-						write(1, num_str, len);
-						count += len;
-					}
+					handle_unsigned_integers(num, &count);
 				}
 				break;
 			case 'o':
