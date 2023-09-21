@@ -14,7 +14,6 @@ int _printf(const char *format, ...)
 	char buffer[1024];		 /* Local buffer for write */
 	char *str_buffer = buffer; /* Pointer to buffer for string handling */
 
-	int i;
 	char character;			 /* Declare character variable */
 
 	va_start(args, format); /* Initialize the va_list */
