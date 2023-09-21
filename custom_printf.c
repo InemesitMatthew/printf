@@ -18,10 +18,8 @@ int _printf(const char *format, ...)
 	char buffer[1024];		 /* Local buffer for write */
 	char *str_buffer = buffer; /* Pointer to buffer for string handling */
 
-	int	i;
+	int i;
 	char character;			 /* Declare character variable */
-	int	len;				 /* Declare len variable */
-	char len_str[UINT_SIZE]; /* Buffer to store integer as string, size of 32*/
 
 	va_start(args, format); /* Initialize the va_list */
 
@@ -73,8 +71,8 @@ int _printf(const char *format, ...)
 						{
 							/* Convert to character */
 							char digit = binary[i] + '0';
-							write(1, &digit, 1);
-							count++;
+							write(1, &digit, BYTE);
+							count += BYTE;
 						}
 					}
 				}
@@ -89,7 +87,7 @@ int _printf(const char *format, ...)
 			case 'i':
 			{
 				/* Handle decimal and integer conversion */
-				int	 num = va_arg(args, int);
+				int num = va_arg(args, int);
 				char num_str[UINT_SIZE]; /* Buffer to store integer as string */
 
 				handle_integers(num, num_str, &count);
@@ -116,7 +114,7 @@ int _printf(const char *format, ...)
 					unsigned int num = va_arg(args, unsigned int);
 					/* Buffer to store octal representation */
 					char num_str[UINT_SIZE];
-					int	 len = snprintf(num_str, sizeof(num_str), "%o", num);
+					int len = snprintf(num_str, sizeof(num_str), "%o", num);
 
 					if (len > 0)
 					{
@@ -146,7 +144,7 @@ int _printf(const char *format, ...)
 					unsigned int num = va_arg(args, unsigned int);
 					/* Buffer to store uppercase hexadecimal representation */
 					char num_str[UINT_SIZE];
-					int	 len = snprintf(num_str, sizeof(num_str), "%X", num);
+					int len = snprintf(num_str, sizeof(num_str), "%X", num);
 
 					if (len > 0)
 					{
@@ -179,8 +177,7 @@ int _printf(const char *format, ...)
 				break;
 			case '%':
 			{
-				char character = va_arg(args, int);
-				handle_percent(character, &count);
+				handle_percent(*format, &count);
 			}
 			break;
 			case 'r':
@@ -194,7 +191,7 @@ int _printf(const char *format, ...)
 				/* Handle rot13'ed string conversion */
 				{
 					char *str = va_arg(args, char *);
-					char  rot13_table[] =
+					char rot13_table[] =
 						"NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
 					int len = 0;
 
@@ -218,17 +215,6 @@ int _printf(const char *format, ...)
 					}
 				}
 				break;
-			case 'n':
-			{
-				len			= va_arg(args, int);
-				int len_len = snprintf(len_str, sizeof(len_str), "%d", len);
-				if (len_len > 0)
-				{
-					write(1, len_str, len_len);
-					count += len_len;
-				}
-				break;
-			}
 			default:
 				/* Handle unsupported format specifier */
 				write(1, "%", 1);

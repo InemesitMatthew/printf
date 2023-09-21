@@ -66,10 +66,9 @@ void handle_percent(char character, int *countByte)
  */
 void handle_reverse_string(char *str_buffer, int *countByte)
 {
-	int length, i;
+	int i;
 
 	i = 0;
-	length = 0;
 
   /*not a null*/
 	if (str_buffer != NULL)
