@@ -36,14 +36,14 @@ void handle_integers(int number, int *countByte)
  */
 void handle_binary(int number, int *countByte)
 {
-	int binary[UINT_SIZE]; /* Array stores the binary representation*/
+	int binary[UINT_SIZE]; /* Array stores the binary representation */
 	int i;
 
 	i = 0;
 	if (number == 0)
 	{
 		write(1, "0", BYTE);
-		countByte += BYTE;
+		*countByte += BYTE;
 	}
 	else
 	{
@@ -62,7 +62,7 @@ void handle_binary(int number, int *countByte)
 			char digit = binary[i] + '0';
 
 			write(1, &digit, BYTE);
-			countByte += BYTE;
+			*countByte += BYTE;
 		}
 	}
 }
@@ -86,6 +86,6 @@ void handle_unsigned_integers(unsigned int number, int *countByte)
 	if (length > 0)
 	{
 		write(1, num_buffer, length);
-		countByte += length;
+		*countByte += length;
 	}
 }
