@@ -39,6 +39,7 @@ void handle_binary(int number, int *countByte)
 	int binary[UINT_SIZE]; /* Array stores the binary representation*/
 	int i;
 
+	i = 0;
 	if (number == 0)
 	{
 		write(1, "0", BYTE);
