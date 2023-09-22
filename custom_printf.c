@@ -45,28 +45,28 @@ int _printf(const char *format, ...)
 				/* Handle binary conversion */
 				{
 					unsigned int num = va_arg(args, unsigned int);
-					handle_binary(num, &count);
+          count += handle_binary(num);
 				}
 				break;
 			case 'c':
 				/* Handle character conversion */
 				character = va_arg(args, int);
-				handle_char(character, &count);
-				break;
+				count += handle_char(character);
 
+				break;
 			case 'd':
 			case 'i':
 			{
 				/* Handle decimal and integer conversion */
 				int num = va_arg(args, int);
-				handle_integers(num, &count);
+				count += handle_integers(num);
 			}
 			break;
 			case 'u':
 				/* Handle unsigned integer conversion */
 				{
 					unsigned int num = va_arg(args, unsigned int);
-					handle_unsigned_integers(num, &count);
+					count += handle_unsigned_integers(num);
 				}
 				break;
 			case 'o':
@@ -134,18 +134,17 @@ int _printf(const char *format, ...)
 				/* Handle string conversion */
 				str_buffer = va_arg(args, char *);
 
-				handle_string(str_buffer, &count);
+				count += handle_string(str_buffer);
 				break;
 			case '%':
-			{
-				handle_percent(*format, &count);
-			}
+
+				count += handle_percent(*format);
 			break;
 			case 'r':
 				/* Handle reversed string conversion */
 				{
 					char *str = va_arg(args, char *);
-					handle_reverse_string(str, &count);
+					count += handle_reverse_string(str);
 				}
 				break;
 			case 'R':
