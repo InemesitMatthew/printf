@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <unistd.h>
 #include "main.h"
 
 /**
@@ -7,11 +5,10 @@
  * to print integers
  *
  * @number: number from the argument
- * @countByte: keeps count of the number printed in bytes
  *
  * Return: void (Nothing)
  */
-void handle_integers(int number, int *countByte)
+int handle_integers(int number)
 {
 	int length;
 	char num_buffer[UINT_SIZE]; /* Buffer stores the number as a string */
@@ -22,31 +19,37 @@ void handle_integers(int number, int *countByte)
 	/*outputing the number like a string or character*/
 	write(1, num_buffer, length);
 
-	*countByte += length;
+	return (length);
 }
 
 /**
  * handle_binary - handle the format specifier b "%b"
  *
  * @number: number from the argument
- * @countByte: keeps count of the binary number of each digit
  * printed int bytes
  *
  * Return: void (Nothing);
  */
-void handle_binary(int number, int *countByte)
+int handle_binary(int number)
 {
-	int binary[UINT_SIZE]; /* Array stores the binary representation */
-	int i;
+	unsigned int binary[UINT_SIZE]; /* Array stores the binary representation */
+	int i, countByte;
 
-	i = 0;
+	countByte = 0;
+	if (number < 0)
+	{
+		return (0);
+	}
+
 	if (number == 0)
 	{
 		write(1, "0", BYTE);
-		*countByte += BYTE;
+
+		return (BYTE);
 	}
 	else
 	{
+	  i = 0;
 	/* Convert to binary */
 		while (number > 0)
 		{
@@ -62,8 +65,10 @@ void handle_binary(int number, int *countByte)
 			char digit = binary[i] + '0';
 
 			write(1, &digit, BYTE);
-			*countByte += BYTE;
+			countByte += BYTE;
 		}
+
+	return (countByte);
 	}
 }
 
@@ -72,11 +77,10 @@ void handle_binary(int number, int *countByte)
  * to print unsigned integers
  *
  * @number: unsigned integer from argument
- * @countByte: keeps count of the number of each digit, printed in bytes
  *
  * Return: void (Nothing)
  */
-void handle_unsigned_integers(unsigned int number, int *countByte)
+int handle_unsigned_integers(unsigned int number)
 {
 	char num_buffer[UINT_SIZE];
 	int length;
@@ -84,8 +88,8 @@ void handle_unsigned_integers(unsigned int number, int *countByte)
 	length = snprintf(num_buffer, UINT_SIZE, "%u", number);
 
 	if (length > 0)
-	{
 		write(1, num_buffer, length);
-		*countByte += length;
-	}
+
+	return (length);
 }
+

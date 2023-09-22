@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "main.h"
 
 /**
@@ -6,14 +5,14 @@
  * to print character
  *
  * @character: character from the argument
- * @countByte: keeps count of the number of character printed in bytes
  *
  * Return: void (Nothing)
  */
-void handle_char(char character, int *countByte)
+int handle_char(char character)
 {
 	write(1, &character, BYTE);
-	*countByte += BYTE;
+
+	return (BYTE);
 }
 
 /**
@@ -21,22 +20,25 @@ void handle_char(char character, int *countByte)
  * to print stirng
  *
  * @str_buffer: string from the argument
- * @countByte: keeps count of the number of characters printed in bytes
  *
  * Return: void (Nothing)
  */
-void handle_string(char *str_buffer, int *countByte)
+int handle_string(char *str_buffer)
 {
+	int length;
+
+	length = strlen(str_buffer);
 	if (str_buffer != NULL)
 	{
-		write(1, str_buffer, strlen(str_buffer));
+		write(1, str_buffer, length);
 
-		*countByte += strlen(str_buffer);
+		return (length);
 	}
 	else
 	{
-		write(1, "(null)", 6);
-		*countByte += 6;
+		write(1, "(null)", NULL_BYTE);
+
+		return (NULL_BYTE);
 	}
 }
 
@@ -45,14 +47,14 @@ void handle_string(char *str_buffer, int *countByte)
  * to print percent sign
  *
  * @character: character from the argument
- * @countByte: keeps count of the number of character printed in bytes
  *
  * Return: void (Nothing)
  */
-void handle_percent(char character, int *countByte)
+int handle_percent(char character)
 {
 	write(1, &character, BYTE);
-	*countByte += BYTE;
+
+	return (BYTE);
 }
 
 /**
@@ -60,33 +62,35 @@ void handle_percent(char character, int *countByte)
  * to print string reverse
  *
  * @str_buffer: string from argument
- * @countByte: keeps count of the number of characters printed out in bytes
  *
  * Return: void (Nothing)
  */
-void handle_reverse_string(char *str_buffer, int *countByte)
+int handle_reverse_string(char *str_buffer)
 {
-	int i;
+	int i, countByte;
 
 	i = 0;
 
-  /*not a null*/
+	/*not a null*/
 	if (str_buffer != NULL)
 	{
 
-    /*get the length and minus by 1 to get the index*/
+		/*get the length and minus by 1 to get the index*/
 		i = strlen(str_buffer) - 1;
 
 		while (i >= 0)
 		{
 			write(1, &str_buffer[i], BYTE); /*print from the last idex*/
-			*countByte += BYTE;
+			countByte += BYTE;
 			i--;
 		}
+
+		return (countByte);
 	}
 	else
 	{
 		write(1, "(null)", NULL_BYTE); /*a null to print*/
-		*countByte += NULL_BYTE;
+
+		return (NULL_BYTE);
 	}
 }
