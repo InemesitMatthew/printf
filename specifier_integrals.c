@@ -93,3 +93,24 @@ int handle_unsigned_integers(unsigned int number)
 	return (length);
 }
 
+/**
+ * handle_octal - handles the format specifier o "%o"
+ * to print octal representation of numbers
+ *
+ * @number: number from the argument
+ *
+ * Return: The length of the printed octal number
+ */
+int handle_octal(int number)
+{
+	char num_buffer[UINT_SIZE]; /* Stores number like a string */
+	int length;
+
+	length = snprintf(num_buffer, sizeof(num_buffer), "%o", number);
+
+	if (length > 0)
+	write(1, num_buffer, length);
+
+	return (length);
+}
+
