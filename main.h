@@ -128,7 +128,6 @@ int handle_lowerCase_hexadecimal(int number);
  */
 int handle_upperCase_hexadecimal(int number);
 
-
 /**
  * handle_pointer - handles the format specifier p "%p"
  * to print memory addresses
@@ -149,4 +148,33 @@ int handle_pointer(void *ptr);
  */
 int handle_rot13(char *str);
 
+/**
+ * handle_precision - Handles the precision for non-custom conversion specifiers.
+ *
+ * @args: Arguments list containing the value to be formatted
+ * @format: The format specifier character ('d', 'i', 'u', 'o', 'x', 'X')
+ *
+ * Return: The count of characters printed
+ */
+int handle_precision(va_list args, char format);
+
+/**
+ * handle_zero_flag - Handles the '0' flag character for non-custom conversion specifiers.
+ *
+ * @args: Arguments list containing the value to be formatted
+ * @format: The format specifier character ('d', 'i', 'u', 'o', 'x', 'X')
+ *
+ * Return: The count of characters printed
+ */
+int handle_zero_flag(va_list args, char format);
+
+/**
+ * handle_minus_flag - Handles the '-' flag character for non-custom conversion specifiers.
+ *
+ * @args: Arguments list containing the value to be formatted
+ * @format: The format specifier character ('d', 'i', 'u', 'o', 'x', 'X')
+ *
+ * Return: The count of characters printed
+ */
+int handle_minus_flag(va_list args, char format);
 #endif /* PRINTF */
