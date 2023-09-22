@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "main.h"
 
 /**
@@ -71,8 +72,7 @@ int handle_reverse_string(char *str_buffer)
 {
 	int i, countByte;
 
-	i = 0;
-
+  countByte = 0;
 	/*not a null*/
 	if (str_buffer != NULL)
 	{
