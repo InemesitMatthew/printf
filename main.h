@@ -149,4 +149,12 @@ int handle_pointer(void *ptr);
  */
 int handle_rot13(char *str);
 
+/**
+ * handle_uppeCase_S - handle the specifier S "%S"
+ *
+ * @str: string from argument
+ *
+ * Return: Length of bytes printed out
+ */
+int handle_upperCase_S(char *str);
 #endif /* PRINTF */
