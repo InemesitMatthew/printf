@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "main.h"
 
 /**
@@ -93,11 +94,15 @@ int _printf(const char *format, ...)
 				break;
 
 			case 's':
-			case 'S':
 				/* Handle string conversion */
 				str_buffer = va_arg(args, char *);
 				count += handle_string(str_buffer);
 				break;
+
+      case 'S':
+          str_buffer = va_arg(args, char *);
+          count += handle_upperCase_S(str_buffer);
+          break;
 
 			case '%':
 
