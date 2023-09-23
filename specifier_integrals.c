@@ -109,7 +109,7 @@ int handle_octal(int number)
 	length = snprintf(num_buffer, sizeof(num_buffer), "%o", number);
 
 	if (length > 0)
-	write(1, num_buffer, length);
+		write(1, num_buffer, length);
 
 	return (length);
 }
