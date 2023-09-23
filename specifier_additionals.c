@@ -15,9 +15,9 @@ int handle_upperCase_S(char *str)
 	while (*str)
 	{
 	/* A non printable character */
-		if (*str <= 32 || *str >= 127)
+		if (*str < 32 || *str >= 127)
 		{
-			write(1, "\\x", 2);
+			write(1, "\\x", 2); /* Output \x */
 			countByte +=  2;
 
 			/* Non printable hexadecimal is just a single digit so output 0 */
@@ -27,7 +27,7 @@ int handle_upperCase_S(char *str)
 			}
 
 			_printf("%X", *str);
-			countByte += 2;
+			countByte += 2; /* Hexadecimal must be 2 characters wide */
 		}
 		else
 		{
