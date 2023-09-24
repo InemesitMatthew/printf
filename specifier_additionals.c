@@ -3,22 +3,25 @@
 /**
  * handle_upperCase_S - handle the specifier S "%S"
  *
- * @str: string from argument
+ * @args: A va_list containing arguments to replace the format specifiers.
  *
  * Return: Length of bytes printed out
  */
-int handle_upperCase_S(char *str)
+int handle_upperCase_S(va_list args)
 {
 	int countByte;
+	char *str;
+
+	str = va_arg(args, char *);
 
 	countByte = 0;
 	while (*str)
 	{
-	/* A non printable character */
+		/* A non printable character */
 		if (*str < 32 || *str >= 127)
 		{
-			write(1, "\\x", 2); /* Output \x */
-			countByte +=  2;
+			write(1, "\\x", (BYTE + BYTE)); /* Output \x */
+			countByte += 2;
 
 			/* Non printable hexadecimal is just a single digit so output 0 */
 			if (*str < 16)
@@ -27,7 +30,7 @@ int handle_upperCase_S(char *str)
 			}
 
 			_printf("%X", *str);
-			countByte += 2; /* Hexadecimal must be 2 characters wide */
+			countByte += (BYTE + BYTE); /* 2 characters wide */
 		}
 		else
 		{
