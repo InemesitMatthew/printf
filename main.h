@@ -9,6 +9,7 @@
 /*system headers*/
 #include <limits.h>
 #include <stdarg.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -61,7 +62,7 @@ int handle_string(va_list args);
  *
  * Return: BYTE which is 1 for character '%'
  */
-int handle_percent(va_list args);
+int handle_percent(va_list __attribute__((unused)) args);
 
 /**
  * handle_reverse_string - handles the format specifier r "%r"
