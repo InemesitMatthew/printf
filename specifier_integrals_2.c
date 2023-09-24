@@ -1,18 +1,20 @@
-#include <stdio.h>
 #include "main.h"
 
 /**
  * handle_lowerCase_hexadecimal - handle the format specifier x "%x"
  * to print hexadecimal representation of numbers in lower-case
  *
- * @number: number from the argument
+ * @args: A va_list containing arguments to replace the format specifiers.
  *
  * Return: The length of the printed hexadecimal number
  */
-int handle_lowerCase_hexadecimal(int number)
+int handle_lowerCase_hexadecimal(va_list args)
 {
+	unsigned int number;
 	char num_buffer[UINT_SIZE];
 	int length;
+
+	number = va_arg(args, unsigned int);
 
 	length = snprintf(num_buffer, sizeof(num_buffer), "%x", number);
 
@@ -25,14 +27,17 @@ int handle_lowerCase_hexadecimal(int number)
  * handle_upperCase_hexadecimal - handle the format specifier X "%X"
  * to print hexadecimal representation of numbers in upper-case
  *
- * @number: number from the argument
+ * @args: A va_list containing arguments to replace the format specifiers.
  *
  * Return: The length of the printed hexadecimal number
  */
-int handle_upperCase_hexadecimal(int number)
+int handle_upperCase_hexadecimal(va_list args)
 {
+	unsigned int number;
 	char num_buffer[UINT_SIZE];
 	int length;
+
+	number = va_arg(args, int);
 
 	length = snprintf(num_buffer, sizeof(num_buffer), "%X", number);
 
@@ -45,14 +50,17 @@ int handle_upperCase_hexadecimal(int number)
  * handle_pointer - handles the format specifier p "%p"
  * to print memory addresses
  *
- * @ptr: pointer that stores address
+ * @args: A va_list containing arguments to replace the format specifiers.
  *
  * Return: The length of the printed address
  */
-int handle_pointer(void *ptr)
+int handle_pointer(va_list args)
 {
+	void *ptr;
 	char ptr_str[UINT_SIZE]; /* Store the address as a string */
 	int length;
+
+	ptr = va_arg(args, void *);
 
 	length = snprintf(ptr_str, sizeof(ptr_str), "%p", ptr);
 
@@ -60,4 +68,3 @@ int handle_pointer(void *ptr)
 
 	return (length);
 }
-

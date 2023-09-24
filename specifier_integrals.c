@@ -4,17 +4,19 @@
  * handle_integers - handles the format specifier d and i "%d", "%i"
  * to print integers
  *
- * @number: number from the argument
+ * @args: A va_list containing arguments to replace the format specifiers.
  *
  * Return: void (Nothing)
  */
-int handle_integers(int number)
+int handle_integers(va_list args)
 {
-	int length;
+	int length, number;
 	char num_buffer[UINT_SIZE]; /* Buffer stores the number as a string */
 
+	number = va_arg(args, int);
+
 	/* getting the length of the number in bytes */
-	length = snprintf(num_buffer, UINT_SIZE, "%d", number);
+	length = snprintf(num_buffer, sizeof(num_buffer), "%d", number);
 
 	/*outputing the number like a string or character*/
 	write(1, num_buffer, length);
@@ -25,21 +27,19 @@ int handle_integers(int number)
 /**
  * handle_binary - handle the format specifier b "%b"
  *
- * @number: number from the argument
- * printed int bytes
+ * @args: A va_list containing arguments to replace the format specifiers.
  *
  * Return: void (Nothing);
  */
-int handle_binary(int number)
+int handle_binary(va_list args)
 {
-	unsigned int binary[UINT_SIZE]; /* Array stores the binary representation */
+	unsigned int binary[UINT_SIZE];
+	unsigned int number; /* Array stores the binary representation */
 	int i, countByte;
 
+	number = va_arg(args, unsigned int);
+
 	countByte = 0;
-	if (number < 0)
-	{
-		return (0);
-	}
 
 	if (number == 0)
 	{
@@ -49,8 +49,8 @@ int handle_binary(int number)
 	}
 	else
 	{
-	  i = 0;
-	/* Convert to binary */
+		i = 0;
+		/* Convert to binary */
 		while (number > 0)
 		{
 			binary[i] = number % 2;
@@ -67,8 +67,7 @@ int handle_binary(int number)
 			write(1, &digit, BYTE);
 			countByte += BYTE;
 		}
-
-	return (countByte);
+		return (countByte);
 	}
 }
 
@@ -76,14 +75,17 @@ int handle_binary(int number)
  * handle_unsigned_integers - handles the format specifier u "%u"
  * to print unsigned integers
  *
- * @number: unsigned integer from argument
+ * @args: A va_list containing arguments to replace the format specifiers.
  *
  * Return: void (Nothing)
  */
-int handle_unsigned_integers(unsigned int number)
+int handle_unsigned_integers(va_list args)
 {
 	char num_buffer[UINT_SIZE];
 	int length;
+	unsigned int number;
+
+	number = va_arg(args, unsigned int);
 
 	length = snprintf(num_buffer, UINT_SIZE, "%u", number);
 
@@ -97,14 +99,16 @@ int handle_unsigned_integers(unsigned int number)
  * handle_octal - handles the format specifier o "%o"
  * to print octal representation of numbers
  *
- * @number: number from the argument
+ * @args: A va_list containing arguments to replace the format specifiers.
  *
  * Return: The length of the printed octal number
  */
-int handle_octal(int number)
+int handle_octal(va_list args)
 {
 	char num_buffer[UINT_SIZE]; /* Stores number like a string */
-	int length;
+	int length, number;
+
+	number = va_arg(args, int);
 
 	length = snprintf(num_buffer, sizeof(num_buffer), "%o", number);
 
@@ -113,4 +117,3 @@ int handle_octal(int number)
 
 	return (length);
 }
-
